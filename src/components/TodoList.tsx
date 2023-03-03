@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TodoItem } from "../Types/type";
+import AddTask from "./AddTask";
 const TodoList = () => {
   const [todo, setTodo] = useState<TodoItem[]>([]);
   const [task, setTask] = useState<string>("");
@@ -17,23 +18,23 @@ const TodoList = () => {
   useEffect(() => {
     getTodos();
   }, []);
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setTodo([...todo, e.target.value]);
+
+  //addNewTask = (newTask: Task)
+  const addNewTask = (task: string) => {
+    // const { id, task, important } = newTask;
+    console.log("Lets add a new task:", task);
+    setTodo([
+      ...todo,
+      {
+        id: todo.length + 1,
+        task: task,
+        important: true,
+      },
+    ]);
   };
+
   return (
     <div className="container">
-      <form>
-        <label>
-          Add Task:
-          <input
-            type="text"
-            placeholder="Add your task here"
-            value={task}
-            onChange={handleSubmit}
-          />
-        </label>
-      </form>
       {todo &&
         todo.map((item, i) => {
           return (
@@ -41,9 +42,11 @@ const TodoList = () => {
               <h3>
                 {item.id}-{item.task}
               </h3>
+              {/* <input type="checkbox" value={item.important} /> */}
             </div>
           );
         })}
+      <AddTask addNewTask={addNewTask} />
     </div>
   );
 };
