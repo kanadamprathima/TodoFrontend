@@ -35,18 +35,22 @@ const TodoList = () => {
 
   return (
     <div className="container">
-      {todo &&
-        todo.map((item, i) => {
-          return (
-            <div key={i}>
-              <h3>
-                {item.id}-{item.task}
-              </h3>
-              {/* <input type="checkbox" value={item.important} /> */}
-            </div>
-          );
-        })}
       <AddTask addNewTask={addNewTask} />
+      <div>
+        {todo &&
+          todo.map((item, i) => {
+            return (
+              <div key={i} className="todo-row ">
+                <h3>
+                  {item.id}-{item.task}
+                </h3>
+                <label>
+                  {/* <input type="checkbox" checked={item.important} /> */}
+                </label>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };
